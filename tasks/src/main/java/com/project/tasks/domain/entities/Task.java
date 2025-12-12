@@ -1,0 +1,169 @@
+package com.project.tasks.domain.entities;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.UUID;
+
+import org.springframework.cglib.core.Local;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "tasks")
+public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
+
+    @Column(name = "title", nullable = false)
+    private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "due_date")
+    private LocalDateTime dateDue;
+
+    @Column(name = "status", nullable = false)
+    private TaskStatus status;
+
+    @Column(name = "priority", nullable = false)
+    private TaskPriority priority;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "task_list_id")
+    private TaskList taskList;
+
+    @Column(name = "created", nullable = false, updatable = false)
+    private LocalDateTime created;
+
+    @Column(name = "updated", nullable = false)
+    private LocalDateTime updated;
+
+
+    public Task(TaskList taskList,UUID id, String title, String description, LocalDateTime dateDue, TaskStatus status,
+            TaskPriority priority) {
+        this.taskList = taskList;
+        this.priority = priority;
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dateDue = dateDue;
+        this.status = status;
+        this.created = LocalDateTime.now();
+        this.updated = LocalDateTime.now();
+    }
+
+    public Task(UUID id2, String title2, String description2, String dateDue2, TaskStatus status2,
+            TaskPriority priority2, Object object, Object object2, Object object3) {
+        //TODO Auto-generated constructor stub
+    }
+
+    // getters and setters
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getDateDue() {
+        return dateDue;
+    }
+
+    public void setDateDue(LocalDateTime dateDue) {
+        this.dateDue = dateDue;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(LocalDateTime updated) {
+        this.updated = updated;
+    }
+
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id) && Objects.equals(title, task.title)
+                && Objects.equals(description, task.description) && Objects.equals(dateDue, task.dateDue)
+                && status == task.status && priority == task.priority
+                && Objects.equals(created, task.created) && Objects.equals(updated, task.updated);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, dateDue, status, priority, taskList, created, updated);
+    }
+
+    @Override
+    public String toString() {
+        return "Task [id=" + id + ", title=" + title + ", description=" + description + ", dateDue=" + dateDue
+                + ", status=" + status + ", priority=" + priority + "taskList=" + taskList + ", created=" + created + ", updated=" + updated
+                + "]";
+    }
+
+}
