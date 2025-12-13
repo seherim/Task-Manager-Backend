@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.cglib.core.Local;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -49,8 +47,7 @@ public class Task {
     @Column(name = "updated", nullable = false)
     private LocalDateTime updated;
 
-
-    public Task(TaskList taskList,UUID id, String title, String description, LocalDateTime dateDue, TaskStatus status,
+    public Task(TaskList taskList, UUID id, String title, String description, LocalDateTime dateDue, TaskStatus status,
             TaskPriority priority) {
         this.taskList = taskList;
         this.priority = priority;
@@ -63,9 +60,17 @@ public class Task {
         this.updated = LocalDateTime.now();
     }
 
-    public Task(UUID id2, String title2, String description2, String dateDue2, TaskStatus status2,
-            TaskPriority priority2, Object object, Object object2, Object object3) {
-        //TODO Auto-generated constructor stub
+    public Task(UUID id, String title, String description, LocalDateTime dateDue, TaskStatus status,
+            TaskPriority priority, TaskList taskList, LocalDateTime created, LocalDateTime updated) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dateDue = dateDue;
+        this.status = status;
+        this.priority = priority;
+        this.taskList = taskList;
+        this.created = created == null ? LocalDateTime.now() : created;
+        this.updated = updated == null ? LocalDateTime.now() : updated;
     }
 
     // getters and setters
@@ -162,7 +167,8 @@ public class Task {
     @Override
     public String toString() {
         return "Task [id=" + id + ", title=" + title + ", description=" + description + ", dateDue=" + dateDue
-                + ", status=" + status + ", priority=" + priority + "taskList=" + taskList + ", created=" + created + ", updated=" + updated
+                + ", status=" + status + ", priority=" + priority + "taskList=" + taskList + ", created=" + created
+                + ", updated=" + updated
                 + "]";
     }
 

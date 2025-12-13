@@ -2,6 +2,7 @@ package com.project.tasks.services.impl;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,8 +15,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
-    
+
     private final TaskListRepository taskListRepository;
+
     public TaskListServiceImpl(TaskListRepository taskListRepository) {
         this.taskListRepository = taskListRepository;
     }
@@ -25,7 +27,7 @@ public class TaskListServiceImpl implements TaskListService {
 
         return taskListRepository.findAll();
     }
-    
+
     @Override
     public TaskList createTaskList(TaskList taskList) {
         if (null != taskList.getId()) {
@@ -44,32 +46,31 @@ public class TaskListServiceImpl implements TaskListService {
                 now,
                 now));
     }
-    
+
     @Override
     public Optional<TaskList> getTaskList(UUID id) {
         return taskListRepository.findById(id);
     }
-    public Optional <TaskListDto> getTaskListDto (UUID id) {
-        return taskListRepository.findById(id).map(taskList -> new TaskListDto(
-                taskList.getId(),
-                taskList.getTitle(),
-                taskList.getDescription(),
-                taskList.getTasks() != null ? taskList.getTasks().size() : 0,
-                0,
-                null
-        ));
-    }
-
-    @Override
-    public Optional<TaskList> getTaskList(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTaskList'");
-    }
 
     @Override
     public TaskList updateTaskList(UUID taskListId, TaskList taskList) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTaskList'");
+        if (null == taskList.getId()) {
+            throw new IllegalArgumentException("Task list ID must be present");
+        }
+        if (!Objects.equals(taskList.getId(), taskListId)) {
+            throw new IllegalArgumentException("Attempting to change task list ID is not permitted");
+        }
+        TaskList existingtaskList = taskListRepository.findById(taskListId)
+                .orElseThrow(() -> new IllegalArgumentException("Task list not found"));
+        existingtaskList.setTitle(taskList.getTitle());
+        existingtaskList.setDescription(taskList.getDescription());
+        existingtaskList.setUpdated(LocalDateTime.now());
+        return taskListRepository.save(existingtaskList);
+
     }
 
+    @Override
+    public void deleteTaskList(UUID taskListId) {
+        taskListRepository.deleteById(taskListId);
+    }
 }
