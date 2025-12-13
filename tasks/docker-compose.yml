@@ -3,9 +3,8 @@ services:
     image: postgres:latest
     ports:
       - "5432:5432"
-    restart:
-      always
+    restart: always
     environment:
+      PGDATA: C:\Users\seher\tasks\Task-Manager-Backend\tasks
       POSTGRES_PASSWORD: examplepass
       POSTGRES_DB: tasksdb
-  
