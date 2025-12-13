@@ -25,7 +25,7 @@ public class TaskMapperImpl implements TaskMapper {
                 null,
                 null,
                 null);
-    }
+    } 
 
     @Override
     public TaskDto toDto(Task task) {
