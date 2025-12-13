@@ -113,13 +113,6 @@ Spring Data JPA repositories under `src/main/java/com/project/tasks/repositories
 - Basic field checks performed in controllers (e.g., required `title` checks). These throw `IllegalArgumentException` and return 400.
 - Recommendation: add Jakarta Validation (`@NotBlank`, `@NotNull`) on DTO fields and use `@Valid` in controllers to standardize validation.
 
-## Extending the project
-
-- Add a service layer (`@Service`) to encapsulate business logic and transactions.
-- Replace manual mappers with MapStruct for less boilerplate (optional).
-- Add controllers for other entities or expand existing controllers (e.g., route `POST /api/task-lists/{id}/tasks/{taskId}/subtasks`).
-- Add OpenAPI/Swagger (springdoc) to auto-generate API docs.
-
 ## Example cURL
 
 Create a task list:
