@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.project.tasks.domain.dto.TaskListDto;
 import com.project.tasks.domain.entities.TaskList;
 import com.project.tasks.repositories.TaskListRepository;
 import com.project.tasks.services.TaskListService;
