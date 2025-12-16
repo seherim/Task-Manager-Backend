@@ -3,6 +3,7 @@ package com.project.tasks.controllers;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +25,12 @@ import com.project.tasks.repositories.UserRepository;
 @RestController
 @RequestMapping("/comments")
 public class CommentController {
+
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
     private final TaskRepository taskRepository;
     private final UserRepository userRepository;
+    
 
     public CommentController(CommentRepository commentRepository, CommentMapper commentMapper,
             TaskRepository taskRepository, UserRepository userRepository) {

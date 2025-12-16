@@ -74,7 +74,7 @@ public class Task {
     }
 
     public Task(UUID parentTaskId, Object object, Object object2, Object object3, Object object4, Object object5) {
-        //TODO Auto-generated constructor stub
+        
     }
 
     // getters and setters
